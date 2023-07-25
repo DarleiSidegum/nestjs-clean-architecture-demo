@@ -12,7 +12,7 @@ export class CheckJWTAuth {
             let decode = await this.jwtService.checkToken(token, process.env.JWT_SECRET);
             return decode;
         } catch (error) {
-            throw new UnauthorizedException(error)
+            throw new UnauthorizedException(error);
         }
     }
 }

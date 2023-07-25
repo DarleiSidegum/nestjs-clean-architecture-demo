@@ -26,19 +26,16 @@ export class LoginAuth {
     ) {}
 
     async execute(request: LoginAuthRequest): Promise<LoginAuthResponse> {
-        const {user} = await this.checkUserAuth.execute(request);
+        const { user } = await this.checkUserAuth.execute(request);
 
         if (!user) {
-            throw new UnauthorizedException(
-                'LoginAuth execute',
-                'Invalid Credentials',
-            );
+            throw new UnauthorizedException('LoginAuth execute', 'Invalid Credentials');
         }
         const token = await this.createJWTAuth.execute(user);
         const refreshToken = await this.resetJWTAuth.execute(user);
 
         this.logger.log('LoginAuth execute', 'New auth have been logind');
 
-        return { token, refreshToken , user };
+        return { token, refreshToken, user };
     }
 }
